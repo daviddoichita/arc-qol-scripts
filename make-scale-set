@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ "$#" -ne 4 ]; then
+    echo "Usage:"
+    echo "make-controller NAME NAMESPACE GITHUB_CONFIG_URL GITHUB_PAT"
+    echo "where NAME is the name you want for the runs-on tag"
+    echo "NAMESPACE is the namespace where you want to install the runner-controller"
+    echo "GITHUB_CONFIG_URL is the url to your github repository"
+    echo "GITHUB_PAT is you github personal access token with repo and admin:org permissions"
+fi
+
+# values.yml: https://github.com/actions/actions-runner-controller/blob/master/charts/gha-runner-scale-set/values.yaml
+helm install "$1" \
+    --namespace "$2" \
+    --create-namespace \
+    --set githubConfigUrl="$3" \
+    --set githubConfigSecret.github_token="$4" \
+    oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set
