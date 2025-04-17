@@ -4,6 +4,7 @@ if [ "$#" -ne 1 ]; then
     echo "Usage:"
     echo "make-controller NAMESPACE"
     echo "where NAMESPACE is the namespace where you want to install the runner-controller"
+    exit 1
 fi
 
 # values.yml: https://github.com/actions/actions-runner-controller/blob/master/charts/gha-runner-scale-set-controller/values.yaml
